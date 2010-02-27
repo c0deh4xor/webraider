@@ -1,4 +1,5 @@
-﻿
+﻿Imports WebRaider.SharedLibrary
+
 Public NotInheritable Class About
 
     Private Sub About_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -20,4 +21,8 @@ Public NotInheritable Class About
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         Me.Close()
     End Sub
+
+	Private Sub LinkLabel4_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LinkLabel4.LinkClicked
+		RunProcess(My.Settings.WebraiderURL)
+	End Sub
 End Class
