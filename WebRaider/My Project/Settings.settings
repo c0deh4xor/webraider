@@ -1,0 +1,39 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
+  <Profiles />
+  <Settings>
+    <Setting Name="Target" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="TargetComplete" Roaming="true" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="TargetHashTable" Type="System.Collections.Hashtable" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="BindInterface" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="BindPort" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">6667</Value>
+    </Setting>
+    <Setting Name="GroupNumber" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="ParameterType" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Int</Value>
+    </Setting>
+    <Setting Name="RubyExecutable" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Metasploit\Metasploit\Framework3\bin\ruby.exe</Value>
+    </Setting>
+    <Setting Name="MsfcliPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Metasploit\msf32\</Value>
+    </Setting>
+    <Setting Name="FirstRun" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="WebraiderURL" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://www.mavitunasecurity.com/blog/webraider/</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
