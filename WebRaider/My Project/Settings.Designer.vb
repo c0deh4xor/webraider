@@ -136,6 +136,17 @@ Namespace My
                 Me("ParameterType") = value
             End Set
         End Property
+        <Global.System.Configuration.UserScopedSettingAttribute(), _
+ Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+ Global.System.Configuration.DefaultSettingValueAttribute("MSSQL - One Click Ownage")> _
+Public Property LastPayload() As String
+            Get
+                Return CType(Me("LastPayload"), String)
+            End Get
+            Set(ByVal value As String)
+                Me("LastPayload") = value
+            End Set
+        End Property
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _

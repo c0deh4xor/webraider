@@ -23,34 +23,36 @@ Partial Class Options
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel
-        Me.TableLayoutPanel6 = New System.Windows.Forms.TableLayoutPanel
-        Me.btnCancel = New System.Windows.Forms.Button
-        Me.btnSave = New System.Windows.Forms.Button
         Me.GroupBox2 = New System.Windows.Forms.GroupBox
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel
-        Me.lblGroup = New System.Windows.Forms.Label
-        Me.cmbGroup = New System.Windows.Forms.ComboBox
-        Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel
-        Me.rdbInt = New System.Windows.Forms.RadioButton
-        Me.rdbStr = New System.Windows.Forms.RadioButton
+        Me.cmbPayloads = New System.Windows.Forms.ComboBox
         Me.lblType = New System.Windows.Forms.Label
+        Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel
+        Me.rdbStr = New System.Windows.Forms.RadioButton
+        Me.rdbInt = New System.Windows.Forms.RadioButton
+        Me.lblGroup = New System.Windows.Forms.Label
+        Me.Label2 = New System.Windows.Forms.Label
+        Me.cmbGroup = New System.Windows.Forms.ComboBox
         Me.GroupBox3 = New System.Windows.Forms.GroupBox
         Me.TableLayoutPanel5 = New System.Windows.Forms.TableLayoutPanel
         Me.Label1 = New System.Windows.Forms.Label
         Me.lblPort = New System.Windows.Forms.Label
         Me.txtPort = New System.Windows.Forms.TextBox
         Me.cmbInterface = New System.Windows.Forms.ComboBox
+        Me.TableLayoutPanel6 = New System.Windows.Forms.TableLayoutPanel
+        Me.btnCancel = New System.Windows.Forms.Button
+        Me.btnSave = New System.Windows.Forms.Button
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel
         Me.txtIp = New System.Windows.Forms.TextBox
         Me.lblIp = New System.Windows.Forms.Label
         Me.TableLayoutPanel2.SuspendLayout()
-        Me.TableLayoutPanel6.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
         Me.TableLayoutPanel4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.TableLayoutPanel5.SuspendLayout()
+        Me.TableLayoutPanel6.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -58,58 +60,24 @@ Partial Class Options
         '
         Me.TableLayoutPanel2.ColumnCount = 1
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle)
-        Me.TableLayoutPanel2.Controls.Add(Me.TableLayoutPanel6, 0, 2)
         Me.TableLayoutPanel2.Controls.Add(Me.GroupBox2, 0, 1)
         Me.TableLayoutPanel2.Controls.Add(Me.GroupBox3, 0, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.TableLayoutPanel6, 0, 2)
         Me.TableLayoutPanel2.Location = New System.Drawing.Point(2, 6)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 3
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle)
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle)
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(280, 236)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(280, 280)
         Me.TableLayoutPanel2.TabIndex = 2
-        '
-        'TableLayoutPanel6
-        '
-        Me.TableLayoutPanel6.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TableLayoutPanel6.ColumnCount = 2
-        Me.TableLayoutPanel6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle)
-        Me.TableLayoutPanel6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle)
-        Me.TableLayoutPanel6.Controls.Add(Me.btnCancel, 1, 0)
-        Me.TableLayoutPanel6.Controls.Add(Me.btnSave, 0, 0)
-        Me.TableLayoutPanel6.Location = New System.Drawing.Point(118, 206)
-        Me.TableLayoutPanel6.Name = "TableLayoutPanel6"
-        Me.TableLayoutPanel6.RowCount = 1
-        Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle)
-        Me.TableLayoutPanel6.Size = New System.Drawing.Size(161, 27)
-        Me.TableLayoutPanel6.TabIndex = 4
-        '
-        'btnCancel
-        '
-        Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(84, 3)
-        Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(75, 23)
-        Me.btnCancel.TabIndex = 3
-        Me.btnCancel.Text = "Cancel"
-        Me.btnCancel.UseVisualStyleBackColor = True
-        '
-        'btnSave
-        '
-        Me.btnSave.Location = New System.Drawing.Point(3, 3)
-        Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(75, 23)
-        Me.btnSave.TabIndex = 4
-        Me.btnSave.Text = "Save"
-        Me.btnSave.UseVisualStyleBackColor = True
         '
         'GroupBox2
         '
         Me.GroupBox2.Controls.Add(Me.TableLayoutPanel3)
         Me.GroupBox2.Location = New System.Drawing.Point(3, 91)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(276, 109)
+        Me.GroupBox2.Size = New System.Drawing.Size(276, 153)
         Me.GroupBox2.TabIndex = 4
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "SQL Injection"
@@ -119,62 +87,54 @@ Partial Class Options
         Me.TableLayoutPanel3.ColumnCount = 2
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle)
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle)
+        Me.TableLayoutPanel3.Controls.Add(Me.cmbPayloads, 1, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.lblType, 0, 3)
+        Me.TableLayoutPanel3.Controls.Add(Me.TableLayoutPanel4, 1, 3)
         Me.TableLayoutPanel3.Controls.Add(Me.lblGroup, 0, 0)
-        Me.TableLayoutPanel3.Controls.Add(Me.cmbGroup, 1, 0)
-        Me.TableLayoutPanel3.Controls.Add(Me.TableLayoutPanel4, 1, 1)
-        Me.TableLayoutPanel3.Controls.Add(Me.lblType, 0, 1)
+        Me.TableLayoutPanel3.Controls.Add(Me.Label2, 0, 2)
+        Me.TableLayoutPanel3.Controls.Add(Me.cmbGroup, 1, 2)
         Me.TableLayoutPanel3.Location = New System.Drawing.Point(6, 19)
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
-        Me.TableLayoutPanel3.RowCount = 2
+        Me.TableLayoutPanel3.RowCount = 4
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle)
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle)
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(248, 81)
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle)
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(264, 132)
         Me.TableLayoutPanel3.TabIndex = 4
         '
-        'lblGroup
+        'cmbPayloads
         '
-        Me.lblGroup.Anchor = System.Windows.Forms.AnchorStyles.Right
-        Me.lblGroup.AutoSize = True
-        Me.lblGroup.Location = New System.Drawing.Point(3, 7)
-        Me.lblGroup.Name = "lblGroup"
-        Me.lblGroup.Size = New System.Drawing.Size(99, 13)
-        Me.lblGroup.TabIndex = 0
-        Me.lblGroup.Text = "Number of Groups :"
+        Me.cmbPayloads.FormattingEnabled = True
+        Me.cmbPayloads.Location = New System.Drawing.Point(108, 3)
+        Me.cmbPayloads.Name = "cmbPayloads"
+        Me.cmbPayloads.Size = New System.Drawing.Size(152, 21)
+        Me.cmbPayloads.TabIndex = 5
         '
-        'cmbGroup
+        'lblType
         '
-        Me.cmbGroup.Anchor = System.Windows.Forms.AnchorStyles.Left
-        Me.cmbGroup.FormattingEnabled = True
-        Me.cmbGroup.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"})
-        Me.cmbGroup.Location = New System.Drawing.Point(108, 3)
-        Me.cmbGroup.Name = "cmbGroup"
-        Me.cmbGroup.Size = New System.Drawing.Size(40, 21)
-        Me.cmbGroup.TabIndex = 1
+        Me.lblType.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.lblType.AutoSize = True
+        Me.lblType.Location = New System.Drawing.Point(14, 86)
+        Me.lblType.Name = "lblType"
+        Me.lblType.Size = New System.Drawing.Size(88, 13)
+        Me.lblType.TabIndex = 4
+        Me.lblType.Text = "Parameter Type :"
         '
         'TableLayoutPanel4
         '
         Me.TableLayoutPanel4.ColumnCount = 1
         Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel4.Controls.Add(Me.rdbInt, 0, 0)
         Me.TableLayoutPanel4.Controls.Add(Me.rdbStr, 0, 1)
-        Me.TableLayoutPanel4.Location = New System.Drawing.Point(108, 30)
+        Me.TableLayoutPanel4.Controls.Add(Me.rdbInt, 0, 0)
+        Me.TableLayoutPanel4.Location = New System.Drawing.Point(108, 57)
         Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
-        Me.TableLayoutPanel4.RowCount = 2
+        Me.TableLayoutPanel4.RowCount = 3
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle)
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle)
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(97, 48)
+        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(97, 45)
         Me.TableLayoutPanel4.TabIndex = 3
-        '
-        'rdbInt
-        '
-        Me.rdbInt.AutoSize = True
-        Me.rdbInt.Location = New System.Drawing.Point(3, 3)
-        Me.rdbInt.Name = "rdbInt"
-        Me.rdbInt.Size = New System.Drawing.Size(58, 17)
-        Me.rdbInt.TabIndex = 0
-        Me.rdbInt.TabStop = True
-        Me.rdbInt.Text = "Integer"
-        Me.rdbInt.UseVisualStyleBackColor = True
         '
         'rdbStr
         '
@@ -187,15 +147,46 @@ Partial Class Options
         Me.rdbStr.Text = "String"
         Me.rdbStr.UseVisualStyleBackColor = True
         '
-        'lblType
+        'rdbInt
         '
-        Me.lblType.Anchor = System.Windows.Forms.AnchorStyles.Right
-        Me.lblType.AutoSize = True
-        Me.lblType.Location = New System.Drawing.Point(14, 47)
-        Me.lblType.Name = "lblType"
-        Me.lblType.Size = New System.Drawing.Size(88, 13)
-        Me.lblType.TabIndex = 2
-        Me.lblType.Text = "Parameter Type :"
+        Me.rdbInt.AutoSize = True
+        Me.rdbInt.Location = New System.Drawing.Point(3, 3)
+        Me.rdbInt.Name = "rdbInt"
+        Me.rdbInt.Size = New System.Drawing.Size(58, 17)
+        Me.rdbInt.TabIndex = 0
+        Me.rdbInt.TabStop = True
+        Me.rdbInt.Text = "Integer"
+        Me.rdbInt.UseVisualStyleBackColor = True
+        '
+        'lblGroup
+        '
+        Me.lblGroup.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.lblGroup.AutoSize = True
+        Me.lblGroup.Location = New System.Drawing.Point(51, 7)
+        Me.lblGroup.Name = "lblGroup"
+        Me.lblGroup.Size = New System.Drawing.Size(51, 13)
+        Me.lblGroup.TabIndex = 0
+        Me.lblGroup.Text = "Payload :"
+        '
+        'Label2
+        '
+        Me.Label2.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(3, 34)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(99, 13)
+        Me.Label2.TabIndex = 5
+        Me.Label2.Text = "Number of Groups :"
+        '
+        'cmbGroup
+        '
+        Me.cmbGroup.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.cmbGroup.FormattingEnabled = True
+        Me.cmbGroup.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"})
+        Me.cmbGroup.Location = New System.Drawing.Point(108, 30)
+        Me.cmbGroup.Name = "cmbGroup"
+        Me.cmbGroup.Size = New System.Drawing.Size(40, 21)
+        Me.cmbGroup.TabIndex = 1
         '
         'GroupBox3
         '
@@ -260,6 +251,40 @@ Partial Class Options
         Me.cmbInterface.Size = New System.Drawing.Size(121, 21)
         Me.cmbInterface.TabIndex = 4
         '
+        'TableLayoutPanel6
+        '
+        Me.TableLayoutPanel6.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TableLayoutPanel6.ColumnCount = 2
+        Me.TableLayoutPanel6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle)
+        Me.TableLayoutPanel6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle)
+        Me.TableLayoutPanel6.Controls.Add(Me.btnCancel, 0, 0)
+        Me.TableLayoutPanel6.Controls.Add(Me.btnSave, 0, 0)
+        Me.TableLayoutPanel6.Location = New System.Drawing.Point(118, 250)
+        Me.TableLayoutPanel6.Name = "TableLayoutPanel6"
+        Me.TableLayoutPanel6.RowCount = 1
+        Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle)
+        Me.TableLayoutPanel6.Size = New System.Drawing.Size(161, 27)
+        Me.TableLayoutPanel6.TabIndex = 4
+        '
+        'btnCancel
+        '
+        Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.btnCancel.Location = New System.Drawing.Point(84, 3)
+        Me.btnCancel.Name = "btnCancel"
+        Me.btnCancel.Size = New System.Drawing.Size(75, 23)
+        Me.btnCancel.TabIndex = 5
+        Me.btnCancel.Text = "Cancel"
+        Me.btnCancel.UseVisualStyleBackColor = True
+        '
+        'btnSave
+        '
+        Me.btnSave.Location = New System.Drawing.Point(3, 3)
+        Me.btnSave.Name = "btnSave"
+        Me.btnSave.Size = New System.Drawing.Size(75, 23)
+        Me.btnSave.TabIndex = 6
+        Me.btnSave.Text = "Save"
+        Me.btnSave.UseVisualStyleBackColor = True
+        '
         'GroupBox1
         '
         Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
@@ -301,11 +326,9 @@ Partial Class Options
         '
         'Options
         '
-        Me.AcceptButton = Me.btnSave
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.CancelButton = Me.btnCancel
-        Me.ClientSize = New System.Drawing.Size(283, 242)
+        Me.ClientSize = New System.Drawing.Size(283, 284)
         Me.Controls.Add(Me.TableLayoutPanel2)
         Me.Name = "Options"
         Me.ShowIcon = False
@@ -313,7 +336,6 @@ Partial Class Options
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Options"
         Me.TableLayoutPanel2.ResumeLayout(False)
-        Me.TableLayoutPanel6.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         Me.TableLayoutPanel3.ResumeLayout(False)
         Me.TableLayoutPanel3.PerformLayout()
@@ -322,6 +344,7 @@ Partial Class Options
         Me.GroupBox3.ResumeLayout(False)
         Me.TableLayoutPanel5.ResumeLayout(False)
         Me.TableLayoutPanel5.PerformLayout()
+        Me.TableLayoutPanel6.ResumeLayout(False)
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
         Me.ResumeLayout(False)
@@ -330,12 +353,6 @@ Partial Class Options
     Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents TableLayoutPanel3 As System.Windows.Forms.TableLayoutPanel
-    Friend WithEvents lblGroup As System.Windows.Forms.Label
-    Friend WithEvents cmbGroup As System.Windows.Forms.ComboBox
-    Friend WithEvents TableLayoutPanel4 As System.Windows.Forms.TableLayoutPanel
-    Friend WithEvents rdbInt As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbStr As System.Windows.Forms.RadioButton
-    Friend WithEvents lblType As System.Windows.Forms.Label
     Friend WithEvents GroupBox3 As System.Windows.Forms.GroupBox
     Friend WithEvents TableLayoutPanel5 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents Label1 As System.Windows.Forms.Label
@@ -346,7 +363,15 @@ Partial Class Options
     Friend WithEvents txtIp As System.Windows.Forms.TextBox
     Friend WithEvents lblIp As System.Windows.Forms.Label
     Friend WithEvents TableLayoutPanel6 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents cmbInterface As System.Windows.Forms.ComboBox
+    Friend WithEvents lblType As System.Windows.Forms.Label
+    Friend WithEvents cmbGroup As System.Windows.Forms.ComboBox
+    Friend WithEvents TableLayoutPanel4 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents rdbStr As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbInt As System.Windows.Forms.RadioButton
+    Friend WithEvents lblGroup As System.Windows.Forms.Label
+    Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents btnCancel As System.Windows.Forms.Button
     Friend WithEvents btnSave As System.Windows.Forms.Button
-    Friend WithEvents cmbInterface As System.Windows.Forms.ComboBox
+    Friend WithEvents cmbPayloads As System.Windows.Forms.ComboBox
 End Class

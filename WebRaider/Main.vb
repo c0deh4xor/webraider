@@ -30,6 +30,7 @@ Imports WebRaider.Plugins.Parser
 Imports WebRaider.SharedLibrary
 Imports System.Threading
 Imports System.Runtime.Serialization.Formatters.Binary
+Imports System.Xml.Linq
 
 
 ''' <summary>
@@ -69,6 +70,7 @@ Public Class Main
 
         WebRaider.SharedLibrary.Options.GroupNumber = Convert.ToInt32(My.Settings.GroupNumber.ToString)
         WebRaider.SharedLibrary.Options.ParameterType = My.Settings.ParameterType.ToString
+        WebRaider.SharedLibrary.Options.SelectedPayload = My.Settings.LastPayload.ToString
 
         Me.Text = String.Format(Me.Text, My.Application.Info.Version)
         LoadPlugin("Plugins/Raiders/", LstPlugins, True)
@@ -152,20 +154,28 @@ Public Class Main
 
     Private Sub Main_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
-		If My.Settings.FirstRun Then
-			MessageBox.Show("This is the first time you are running WebRaider, you need to generate a reverse shell executable first. Check the options now and confirm your settings." & vbNewLine & vbNewLine & "You need to do this everytime your IP changes.", "First time setup", MessageBoxButtons.OK, MessageBoxIcon.Information)
-			Options.ShowDialog(Me)
-			My.Settings.FirstRun = False
-		End If
+        FormSetup()
 
-		FormSetup()
+
+        If My.Settings.FirstRun Then
+            MessageBox.Show("This is the first time you are running WebRaider, you need to generate a reverse shell executable first. Check the options now and confirm your settings." & vbNewLine & vbNewLine & "You need to do this everytime your IP changes.", "First time setup", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Options.ShowDialog(Me)
+            My.Settings.FirstRun = False
+        End If
+
+
 		LoadPayload()
 		StartNewShell()
     End Sub
 
-    Private Sub LoadPayload()
+    Public Function LoadPayload() As Boolean()
         TxtPayload.Text = Web.HttpUtility.UrlEncode(RaiderPluginsReader(0).Attacks(0).Pattern)
         TxtPayload.Text &= vbNewLine & vbNewLine & RaiderPluginsReader(0).Attacks(0).Pattern
+
+    End Function
+
+    Private Sub LoadPayloads()
+
     End Sub
 
 
@@ -203,6 +213,14 @@ Public Class Main
 
         For Each CurrentTargetUrl As String In Split(DirectCast(urlObj, String), vbNewLine)
 
+            If ParserPlugins(0).Forms IsNot Nothing Then
+                ParserPlugins(0).Forms.Clear()
+            End If
+
+            If ParserPlugins(0).Links IsNot Nothing Then
+                ParserPlugins(0).Links.Clear()
+            End If
+
             Dim AttackUri As Uri
             If Not Uri.TryCreate(CurrentTargetUrl, UriKind.Absolute, AttackUri) Then
                 Continue For
@@ -217,6 +235,10 @@ Public Class Main
             End If
 
             Dim CurrentParser As IParser = ParserPlugins(0)
+            'Add current URL to source code to attack its querystring parameters.
+            If Not AttackResponse.SourceCode.Contains(CurrentTargetUrl) Then
+                AttackResponse.SourceCode = AttackResponse.SourceCode + "<a href=" + CurrentTargetUrl + "/>"
+            End If
             CurrentParser.Setup(AttackResponse.SourceCode, Link.Url)
             CurrentParser.Parse()
 
@@ -494,6 +516,7 @@ Public Class Main
 
     Private Sub OptionsToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OptionsToolStripMenuItem1.Click
         Options.ShowDialog(Me)
+        LoadPayload()
     End Sub
 
     Private Sub ExitToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ExitToolStripMenuItem.Click
