@@ -3,7 +3,7 @@
 
 Public Class Options
 
-    Private Sub btnCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancel.Click
+    Private Sub btnCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         OptionsExit()
         Me.Close()
     End Sub
@@ -17,7 +17,15 @@ Public Class Options
         Main.Enabled = False
 
         txtPort.Text = My.Settings.BindPort.ToString()
- 
+
+        cmbPayloads.Items.Clear()
+        For Each payload In SharedLibrary.Options.Payloads
+            cmbPayloads.Items.Add(payload.ToString())
+        Next
+        If (cmbPayloads.Items.Count > 0) Then
+            cmbPayloads.SelectedIndex = 0
+        End If
+
 
         cmbGroup.SelectedIndex = cmbGroup.Items.IndexOf(WebRaider.SharedLibrary.Options.GroupNumber.ToString())
 
@@ -26,6 +34,16 @@ Public Class Options
         Else
             rdbStr.Select()
         End If
+
+        'Select Case WebRaider.SharedLibrary.Options.db
+        '    Case SharedLibrary.Options.Database.MSSQL
+        '        rdbMssql.Select()
+        '    Case SharedLibrary.Options.Database.ORACLE
+        '        rdbOracle.Select()
+        'End Select
+
+
+
 
 
         If Not String.IsNullOrEmpty(My.Settings.BindInterface) Then
@@ -48,11 +66,13 @@ Public Class Options
     End Sub
 
     Private Sub btnSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSave.Click
+
         If (cmbInterface.SelectedIndex > -1) Then
             My.Settings.BindInterface = cmbInterface.SelectedItem.ToString()
         Else
             My.Settings.BindInterface = cmbInterface.Text
         End If
+
 
         My.Settings.BindPort = Convert.ToInt32(txtPort.Text)
 
@@ -62,12 +82,21 @@ Public Class Options
         Else
             WebRaider.SharedLibrary.Options.ParameterType = ParameterType.Str.ToString()
         End If
-
+        WebRaider.SharedLibrary.Options.SelectedPayload = cmbPayloads.SelectedItem.ToString()
+ 
         My.Settings.GroupNumber = WebRaider.SharedLibrary.Options.GroupNumber.ToString
         My.Settings.ParameterType = WebRaider.SharedLibrary.Options.ParameterType.ToString
+        My.Settings.LastPayload = WebRaider.SharedLibrary.Options.SelectedPayload
         My.Settings.Save()
+
+
+        DirectCast(Me.Owner, Main).LoadPayload()
+
         Dim firstThread As New Thread(New ThreadStart(AddressOf BuildAll))
         firstThread.Start()
+
+
+
     End Sub
     Private Sub BuildAll()
         Application.UseWaitCursor = True
@@ -91,13 +120,14 @@ Public Class Options
             CurrentRaider.Setup()
         Next
         Application.UseWaitCursor = False
+
         Invoke(New Action(AddressOf Me.Close))
     End Sub
     Private Sub GenerateShell()
         Dim Shell As Process = New Process()
         With Shell
             .StartInfo.FileName = String.Format("""{0}\Utilities\GenerateShellParameterized.bat""", System.IO.Directory.GetCurrentDirectory)
-            .StartInfo.Arguments = String.Format("""{0}"" ""{1}"" {2} {3}", IO.Path.GetFullPath(My.Settings.RubyExecutable), IO.Path.GetFullPath(My.Settings.MsfcliPath) & "msfpayload", My.Settings.BindInterface, My.Settings.BindPort)
+            .StartInfo.Arguments = String.Format("""{0}"" ""{1}"" {2} {3}", IO.Path.GetFullPath(My.Settings.RubyExecutable), IO.Path.GetFullPath(My.Settings.MsfcliPath) & "\msfpayload", My.Settings.BindInterface, My.Settings.BindPort)
             'MsgBox(.StartInfo.Arguments)
             .StartInfo.UseShellExecute = False
             .StartInfo.CreateNoWindow = True
@@ -119,6 +149,7 @@ Public Class Options
         Int = 1
         Str = 2
     End Enum
+
 End Class
 
 
