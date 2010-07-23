@@ -1,4 +1,4 @@
-#WebRaider changelog
+#WebRaider changelog.
 
 = WebRaider 0.5.0.0=
 
