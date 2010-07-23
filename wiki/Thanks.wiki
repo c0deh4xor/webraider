@@ -1,5 +1,5 @@
-
+#labels Featured
 I'd like to thank; 
 
   * Sumit Siddarth for Oracle exploitation idea and attack examples.
-  * Aleksander Gorkowienko for lots of bug notification and his helpful recommendations. 
+  * Aleksander Gorkowienko for lots of bug notifications and helpful recommendations. 
