@@ -4,4 +4,4 @@
 *23.07.2010*
   * New fully customizable payload based system.
   * Two new Oracle payloads.
-  * Lots of bug fix.
+  * Lots of bug fixes.
