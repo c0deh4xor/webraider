@@ -1,0 +1,6 @@
+# WebRaider 0.5.0.0 #
+
+**23.07.2010**
+  * New fully customizable payload based system.
+  * Two new Oracle payloads.
+  * Lots of bug fixes.
